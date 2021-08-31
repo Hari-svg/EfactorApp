@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:droid="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_color"
+        android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/Editgateway"
+    android:gravity="center"
+    android:textSize="@dimen/text_large"
+    android:layout_margin="@dimen/space_10"
+    android:textColor="@color/black"/>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/space_10"
+            android:background="@color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginVertical="@dimen/space_10"
+            android:layout_marginHorizontal="@dimen/space_15"
+            android:background="@drawable/a4_grad"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <com.sravan.efactorapp.Base.CustomEditText
+                android:id="@+id/et_gatewayName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                droid:ems="10"
+                android:background="@drawable/rounded_corner_search"
+                android:fontFamily="@font/lato_regular"
+                android:hint="Gateway Name"
+                android:textColorHint="@color/darkgrey"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textMedium">
+                <requestFocus />
+            </com.sravan.efactorapp.Base.CustomEditText>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_20"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="@string/title_wifi_details"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_30"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/rb_static"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Static"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/rb_dynamic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dynamic"
+                    android:textColor="@color/black" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:id="@+id/dynamic_layout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Spinner
+                    android:id="@+id/spinnerWifi"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:layout_marginEnd="@dimen/space_30"
+                    android:layout_weight="2"
+                    android:background="@drawable/rounded_corner_search" />
+
+                <ImageView
+                    android:id="@+id/imageViewRefresh"
+                    android:layout_width="@dimen/space_30"
+                    android:layout_height="@dimen/space_30"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:layout_marginEnd="@dimen/dp_40"
+                    android:src="@drawable/ic_baseline_refresh_24" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginVertical="@dimen/space_15"
+                android:layout_marginHorizontal="@dimen/space_15"
+                android:background="@drawable/a4_grad"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.sravan.efactorapp.Base.CustomEditText
+                    android:id="@+id/editTextWifiPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    droid:ems="10"
+                    android:background="@drawable/rounded_corner_search"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Password"
+                    android:textColorHint="@color/darkgrey"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="20sp">
+                    <requestFocus />
+                </com.sravan.efactorapp.Base.CustomEditText>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/static_layout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginVertical="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_15"
+                android:background="@drawable/a4_grad"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.sravan.efactorapp.Base.CustomEditText
+                    android:id="@+id/ip1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    droid:ems="10"
+                    android:background="@drawable/rounded_corner_search"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="IP Address"
+                    android:textColorHint="@color/darkgrey"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textMedium">
+                    <requestFocus />
+                </com.sravan.efactorapp.Base.CustomEditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginVertical="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_15"
+                android:background="@drawable/a4_grad"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.sravan.efactorapp.Base.CustomEditText
+                    android:id="@+id/ip2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    droid:ems="10"
+                    android:background="@drawable/rounded_corner_search"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Subnet mask"
+                    android:textColorHint="@color/darkgrey"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textMedium">
+                    <requestFocus />
+                </com.sravan.efactorapp.Base.CustomEditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginVertical="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_15"
+                android:background="@drawable/a4_grad"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.sravan.efactorapp.Base.CustomEditText
+                    android:id="@+id/ip3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    droid:ems="10"
+                    android:background="@drawable/rounded_corner_search"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Default gateway"
+                    android:textColorHint="@color/darkgrey"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textMedium">
+                    <requestFocus />
+                </com.sravan.efactorapp.Base.CustomEditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginVertical="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_15"
+                android:background="@drawable/a4_grad"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.sravan.efactorapp.Base.CustomEditText
+                    android:id="@+id/ip4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    droid:ems="10"
+                    android:background="@drawable/rounded_corner_search"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Preferred DNS server"
+                    android:textColorHint="@color/darkgrey"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textMedium">
+                    <requestFocus />
+                </com.sravan.efactorapp.Base.CustomEditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginVertical="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_15"
+                android:background="@drawable/a4_grad"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.sravan.efactorapp.Base.CustomEditText
+                    android:id="@+id/ip5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    droid:ems="10"
+                    android:background="@drawable/rounded_corner_search"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Alternate DNS server"
+                    android:textColorHint="@color/darkgrey"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textMedium">
+                    <requestFocus />
+                </com.sravan.efactorapp.Base.CustomEditText>
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/buttonSubmit"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/space_20"
+            android:background="@drawable/a3_grad"
+            android:fontFamily="@font/lato_regular"
+            android:text="Update Gateway"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"/>
+    </LinearLayout>
+</ScrollView>

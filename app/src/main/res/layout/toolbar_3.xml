@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/llToolbar2"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_50"
+    android:background="@drawable/a1_grad"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/ivBackButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"
+        android:padding="9dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center"
+        />
+
+    <com.sravan.efactorapp.Base.CustomTextView
+        android:textSize="@dimen/textLarge"
+        app:customFont="@string/font_bold"
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_weight=".6"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <com.sravan.efactorapp.Base.CustomTextView
+        app:customFont="@string/font_bold"
+        android:textSize="@dimen/textSmall"
+        android:id="@+id/tvSwitch"
+        android:layout_width="0dp"
+        android:layout_weight=".4"
+        android:padding="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:text="Service type"
+        android:background="@drawable/rectangle_white_stroke"
+        android:layout_gravity="center"/>
+    <com.sravan.efactorapp.Base.CustomTextView
+        app:customFont="@string/font_bold"
+        android:textSize="@dimen/textSmall"
+        android:id="@+id/tvAdd"
+        android:layout_width="0dp"
+        android:layout_weight=".2"
+        android:padding="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:text="Add"
+        android:background="@drawable/rectangle_white_stroke"
+        android:layout_gravity="center"/>
+
+
+
+
+
+</LinearLayout>

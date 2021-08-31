@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_color">
+
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_250"
+        android:background="@drawable/banner1">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/a4_grad"
+        android:id="@+id/cardviewone"
+        android:layout_marginBottom="@dimen/space_50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_15"
+        android:layout_below="@+id/banner"
+        android:layout_marginTop="-100dp"
+        android:layout_marginRight="@dimen/text_15"
+        android:orientation="horizontal"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dip">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollIndicators="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/cardviewone"
+                    android:layout_marginTop="@dimen/space_10">
+
+                    <RelativeLayout
+                        android:id="@+id/rel12"
+                        android:layout_width="@dimen/space_100"
+                        android:layout_height="@dimen/space_100"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:id="@+id/iv_cal_burn"
+                            android:layout_width="@dimen/space_80"
+                            android:layout_height="@dimen/space_80"
+                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/logo" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+                <com.sravan.efactorapp.Base.CustomTextView
+                    android:id="@+id/tv_cal_burn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rel12"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/space_5"
+                    android:gravity="center"
+                    android:text="@string/register"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsize_18" />
+
+                <LinearLayout
+                    android:id="@+id/ll_cal_burn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/space_15"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <com.sravan.efactorapp.Base.CustomEditText
+                            android:id="@+id/et_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_50"
+                            android:layout_weight="7"
+                            android:background="@drawable/corner2"
+                            android:hint="@string/firstname"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPersonName"
+
+                            android:paddingLeft="@dimen/space_10"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textsize_14" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <com.sravan.efactorapp.Base.CustomEditText
+                            android:id="@+id/et_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_50"
+                            android:layout_weight="7"
+                            android:background="@drawable/corner2"
+                            android:hint="@string/Email_man"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/space_10"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textsize_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <com.sravan.efactorapp.Base.CustomEditText
+                            android:id="@+id/et_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_50"
+                            android:layout_weight="7"
+                            android:background="@drawable/corner2"
+                            android:hint="@string/moblie"
+                            android:imeOptions="actionNext"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/space_10"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textsize_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <com.sravan.efactorapp.Base.CustomEditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_50"
+                            android:layout_weight="7"
+                            android:background="@drawable/corner2"
+                            android:hint="@string/enter_password"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/space_10"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textsize_14" />
+
+                    </LinearLayout>
+
+
+                    <com.sravan.efactorapp.Base.CustomTextView
+                        android:id="@+id/bt_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_50"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:background="@drawable/a3_grad"
+                        android:gravity="center"
+                        android:text="@string/register"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/textsize_14" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:gravity="center"
+                        android:weightSum="12">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="3"
+                            android:background="@color/colorPrimaryDark" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6"
+                            android:text="Use other Methods"
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_14" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="3"
+                            android:background="@color/colorPrimaryDark" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_facebook" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:src="@drawable/ic_gmail" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

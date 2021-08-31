@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/background_white"
+    android:layout_marginStart="@dimen/space_10"
+    android:layout_marginEnd="@dimen/space_10"
+    android:backgroundTint="#FFFFFF">
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="@dimen/space_310"
+        android:layout_height="@dimen/space_30"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="Title"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_name"
+        android:layout_width="@dimen/space_310"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="@dimen/space_5"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@color/gray"
+        android:fontFamily="@font/lato_light"
+        android:hint="Hint"
+        android:textColorHint="@color/black"
+        android:imeOptions="actionDone"
+        android:maxLength="32"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+    <Button
+        android:id="@+id/dialog_btn_submit"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:background="@drawable/a3_grad"
+        android:layout_marginHorizontal="@dimen/space_50"
+        android:layout_marginVertical="@dimen/space_10"
+        android:fontFamily="@font/lato_light"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

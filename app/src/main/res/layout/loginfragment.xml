@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BrLaundary_Grey_Light">
+
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_250"
+        android:background="@drawable/banner1">
+
+    </RelativeLayout>
+    <!-- <ImageView
+         android:id="@+id/iv_back"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:layout_marginTop="20dp"
+         android:padding="5dp"
+         android:src="@mipmap/left_arrow" />-->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner"
+        android:layout_marginLeft="@dimen/text_15"
+        android:layout_marginTop="-95dp"
+        android:layout_marginRight="@dimen/text_15">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_50"
+            android:background="@drawable/a4_grad"
+            app:cardCornerRadius="@dimen/space_20"
+            app:cardElevation="@dimen/space_10"
+            app:cardBackgroundColor="@color/white"
+            android:orientation="horizontal">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ad_layout"
+                android:layout_below="@+id/tv_cal_burn"
+                android:scrollIndicators="none"
+                tools:ignore="NotSibling,UnknownId">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/cardviewone"
+                        android:layout_marginTop="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rel12"
+                            android:layout_width="@dimen/space_200"
+                            android:layout_height="@dimen/space_100"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/iv_cal_burn"
+                                android:layout_width="@dimen/space_150"
+                                android:layout_height="@dimen/space_80"
+                                android:layout_centerInParent="true"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/logo" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+
+                    <com.sravan.efactorapp.Base.CustomTextView
+                        android:id="@+id/tv_cal_burn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rel12"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="@dimen/space_10"
+                        android:text="@string/login"
+                        android:textAlignment="center"
+                        android:textColor="@color/BrLaundary_Black"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_cal_burn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/space_20"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+
+                            <com.sravan.efactorapp.Base.CustomEditText
+                                android:id="@+id/et_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/space_50"
+                                android:layout_weight="7"
+                                android:background="@drawable/corner2"
+                                android:fontFamily="@font/lato_medium"
+                                android:hint="@string/enter_username"
+                                android:imeOptions="actionNext"
+                                android:inputType="textEmailAddress"
+                                android:paddingLeft="@dimen/space_10"
+                                android:textColor="@color/BrLaundary_Black"
+                                android:textColorHint="@color/BrLaundary_Grey"
+                                android:textSize="@dimen/textsize_14" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+
+                            <com.sravan.efactorapp.Base.CustomEditText
+                                android:id="@+id/et_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/space_50"
+                                android:layout_weight="7"
+                                android:background="@drawable/corner2"
+                                android:fontFamily="@font/lato_medium"
+                                android:hint="@string/enter_password"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:paddingLeft="@dimen/space_10"
+                                android:textColor="@color/BrLaundary_Black"
+                                android:textColorHint="@color/BrLaundary_Grey"
+                                android:textSize="@dimen/textsize_14" />
+
+                        </LinearLayout>
+
+                        <com.sravan.efactorapp.Base.CustomTextView
+                            android:id="@+id/tv_forgotpass"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:gravity="end"
+                            android:padding="@dimen/space_10"
+                            android:text="@string/forgetpassword"
+                            android:textColor="@color/darkgrey"
+                            android:textSize="@dimen/textsize_14" />
+
+                        <Button
+                            android:id="@+id/bt_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_50"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:background="@drawable/a3_grad"
+                            android:gravity="center"
+                            android:text="@string/login"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize_14" />
+
+                        <TextView
+                            android:id="@+id/tv_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:gravity="center"
+                            android:text="New user? Register Now"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/text_18"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_20"
+                            android:gravity="center"
+                            android:weightSum="12">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="3"
+                                android:background="@color/darkgrey" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="6"
+                                android:text="Use other Methods"
+                                android:textAlignment="center"
+                                android:textColor="@color/darkgrey"
+                                android:textSize="@dimen/text_14" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="3"
+                                android:background="@color/darkgrey" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_facebook" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_10"
+                                android:src="@drawable/ic_gmail" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+    <!--    <include-->
+    <!--        android:id="@+id/ad_layout"-->
+    <!--        layout="@layout/native_ad"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentLeft="true"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end" />-->
+</RelativeLayout>

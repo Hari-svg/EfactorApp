@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_50"
+    android:background="@drawable/a1_grad"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <ImageButton
+        android:id="@+id/ivToggleNavButton"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_5"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/dp_5"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_menu_24" />
+
+    <ImageButton
+        android:id="@+id/ivBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_5"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/dp_10"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llLocationLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.sravan.efactorapp.Base.CustomTextView
+            android:id="@+id/tvLocationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Your_Location"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textExtraSmall"
+            app:customFont="@string/font_bold" />
+
+        <com.sravan.efactorapp.Base.CustomTextView
+            android:id="@+id/tvCurrentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textExtraSmall"
+            app:customFont="@string/font_regular" />
+    </LinearLayout>
+
+    <com.sravan.efactorapp.Base.CustomTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textLarge"
+        app:customFont="@string/font_bold" />
+
+<!--
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sw_driver_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:padding="@dimen/dp_10"
+        app:kswBackColor="@color/colorTransGray"
+        app:kswTintColor="@color/color_green"/>-->
+
+</LinearLayout>

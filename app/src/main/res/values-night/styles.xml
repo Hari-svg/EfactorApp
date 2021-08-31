@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="YourCustomStyle" parent="android:Theme">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="CheckBoxStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/BrLaundary_Orange</item>
+        <item name="android:width">30dp</item>
+        <item name="android:height">30dp</item>
+    </style>
+
+
+    <style name="BadeDialogStyle">
+        <item name="android:windowEnterAnimation">@anim/pull_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottomdia</item>
+    </style>
+</resources>

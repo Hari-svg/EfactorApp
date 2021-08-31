@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">EfactorApp</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="login">Sign In</string>
+
+    <string name="message_password_attempts_exceeded" />
+    <string name="message_attempt_limit_exceeded" />
+    <string name="message_check_your_internet" />
+    <string name="message_internal_error_contact_support" />
+    <string name="message_username_already_exists" />
+    <string name="message_invalid_password" />
+    <string name="string_sp_titletext" />
+    <string name="app_ver" />
+    <string name="label_verification_code_has_been_sent" />
+    <string name="message_incorrect_code" />
+    <string name="message_user_already_confirmed" />
+    <string name="label_resend_otp" />
+    <string name="btn_submit" />
+    <string name="title_wifi_details">Wifi Details</string>
+    <string name="title_select_device" />
+    <string name="title_activity_force_change_password" />
+    <string name="Home_page" />
+    <string name="gateways" />
+    <string name="action_settings" />
+    <string name="enter_username">Mobile Number</string>
+
+    <string name="enter_password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="forgetpassword">Forgot Password?</string>
+    <string name="firstname">Full Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="Email">Email</string>
+    <string name="Email_man">Email(Mandatory)</string>
+    <string name="moblie">Mobile Number</string>
+    <string name="register">Sign Up</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
+    <string name="back">Back</string>
+
+    <string name="font_bold">dinbold.ttf</string>
+    <string name="font_light">dinlight.ttf</string>
+    <string name="font_regular">dinregular.ttf</string>
+    <string name="font_thin">dinmedium.ttf</string>
+    <string name="Your_Location">Your Location</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Editgateway">Edit Gateway</string>
+</resources>
