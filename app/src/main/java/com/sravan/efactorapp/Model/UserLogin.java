@@ -26,6 +26,18 @@ public class UserLogin {
     @Expose
     private String gender;
 
+    public String getAuthcode() {
+        return authcode;
+    }
+
+    public void setAuthcode(String authcode) {
+        this.authcode = authcode;
+    }
+
+    @SerializedName("authcode")
+    @Expose
+    private String authcode;
+
     public String getStatus() {
         return status;
     }

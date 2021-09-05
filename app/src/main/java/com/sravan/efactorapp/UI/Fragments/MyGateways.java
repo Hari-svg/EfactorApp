@@ -5,21 +5,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
-import com.sravan.efactorapp.Adapter.DeviceListAdapter;
+import com.polidea.rxandroidble2.RxBleClient;
+import com.polidea.rxandroidble2.RxBleDevice;
 import com.sravan.efactorapp.Adapter.GatewayAdapter;
+import com.sravan.efactorapp.BLE.BLECommHandler;
+import com.sravan.efactorapp.BLE.BLEConstants;
+import com.sravan.efactorapp.BLE.OperationResultCallback;
 import com.sravan.efactorapp.Base.AdapterClickListener;
 import com.sravan.efactorapp.Base.BaseFragment;
 import com.sravan.efactorapp.Model.CommonPojo;
 import com.sravan.efactorapp.Model.GATEWAYPOJO;
-import com.sravan.efactorapp.Model.MYDEVICESPOJO;
 import com.sravan.efactorapp.R;
 import com.sravan.efactorapp.RestClient.ApiIds;
 import com.sravan.efactorapp.RestClient.RestClient;
@@ -45,6 +46,8 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
     private RestClient restClient;
     private SessionManager sessionManager;
     private FloatingActionButton add_gateway;
+    RxBleClient rxBleClient;
+    private int Position;
 
 
     public static MyGateways newInstance(String param1) {
@@ -69,6 +72,8 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
             String str = TAG;
             Log.d(str, "Gateway List : " + this.GatewayList);
         }*/
+
+
         GatewayRV = (RecyclerView) findViewByIds(R.id.gateway_rv);
         GatewayRV.addItemDecoration(new DividerItemDecoration(getActivity(), 1));
         GatewayRV.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -92,15 +97,19 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
         if (action.equals("Delete")) {
             //showToast(GatewayList.get(position).getGatewayId());
             GATEWAYID = GatewayList.get(position).getId();
+            Position = position;
+            Log.e("Position", String.valueOf(Position));
+            Log.e("GatewayId", String.valueOf(GATEWAYID));
+            //Log.e("MAC", GatewayList.get(position).getGatewayMac());
             displayProgressBar(false);
             restClient.callback(this).DELETE_GATEWAY(GATEWAYID);
-
-        }
-        else if (action.equals("Edit")){
-            GATEWAYID=GatewayList.get(position).getId();
-            Bundle bundle=new Bundle();
-            bundle.putSerializable("gatewaylist", (Serializable) GatewayList.get(position));
-            setFragmentsWithBundle(R.id.frameLayout,new EditGateway(),bundle,true);
+            // initBle();
+        } else if (action.equals("Edit")) {
+            GATEWAYID = GatewayList.get(position).getId();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("gatewaylist", (Serializable) GatewayList);
+            bundle.putInt("id", position);
+            setFragmentsWithBundle(R.id.frameLayout, new EditGateway(), bundle, true);
         }
     }
 
@@ -132,8 +141,10 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
                     //TODO
                     CommonPojo pojo = gson.fromJson(s, CommonPojo.class);
                     if (pojo.getStatus().equals("success")) {
-                        Log.e(TAG, "success: ");
+                        Log.e(TAG, "success: " + pojo.getMessage());
                         try {
+
+                            initBle();
                             showToast(pojo.getMessage());
                             // setFragments(R.id.frameLayout, new MyGateways(), true);
                             //Log.e(TAG, "DeviceList" + DeviceDataList.size());
@@ -168,13 +179,13 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
                     if (pojo.getStatus().equals("success")) {
                         Log.e(TAG, "success: ");
                         try {
-                            Log.e(TAG, "" + pojo.getGateways());
+                            Log.e(TAG, "" + pojo.getGateways().toString());
                             GatewayList = pojo.getGateways();
                             // sessionManager.setLOCALIP(GatewayList.get(0).getGatewayIp());;
                             GatewayAdapter gatewayAdapter = new GatewayAdapter(this, GatewayList);
                             GatewayRV.setAdapter(gatewayAdapter);
                             //setFragments(R.id.frameLayout, new HomeFragment(), true);
-                            Log.e(TAG, "GatewayList" + GatewayList.size());
+                            Log.e(TAG, "GatewayListSize" + GatewayList.size());
                         } catch (Exception e) {
                             dismissProgressBar();
                             Toast.makeText(getContext(), "" + e, Toast.LENGTH_SHORT).show();
@@ -203,6 +214,51 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
     public void onFailResponse(int apiId, String error) {
         dismissProgressBar();
         displayErrorDialog("Error", error);
+    }
+
+
+    private void initBle() {
+        Log.e("initBle", "initBle initial");
+        Log.e(TAG, "GATEWAY MAC" + GatewayList.get(Position).getGatewayMac());
+        //rxBleClient = App.getBleClient();
+        rxBleClient = RxBleClient.create(getContext());
+
+        String mac1 = GatewayList.get(0).getGatewayMac()/*"9C9C1FEE8B60"*/;
+        String s1 = mac1.substring(0, 2);
+        String s2 = mac1.substring(2, 4);
+        String s3 = mac1.substring(4, 6);
+        String s4 = mac1.substring(6, 8);
+        String s5 = mac1.substring(8, 10);
+        String s6 = mac1.substring(10, 12);
+        int s7 = Integer.valueOf(s6) + 2;
+        String mac2 = s1 + ":" + s2 + ":" + s3 + ":" + s4 + ":" + s5 + ":" + s7;
+        Log.e(TAG, mac2);
+        RxBleDevice rxBleDevice = rxBleClient.getBleDevice(mac2);
+        //  Log.e(TAG, "GATEWAY MAC" + GatewayList.get(Position).getGatewayMac());
+        try {
+
+            BLECommHandler.getInstance().sendRawDataOverBLE(rxBleDevice,
+                    BLEConstants.BLE_SERVICE_ATTR_CONN_UUID, "0xF0".getBytes(), new OperationResultCallback() {
+
+                        @Override
+                        public void onOperationResult(int i, String str) {
+                            switch (i) {
+                                case 0:
+                                    Log.e(TAG, "initBle successfully sent data");
+                                    break;
+                                case 1:
+                                    Log.e(TAG, "initBle failure data");
+
+                                    break;
+                            }
+
+                        }
+                    });
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
     }
 
 }

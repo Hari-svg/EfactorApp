@@ -3,9 +3,10 @@ package com.sravan.efactorapp.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GATEWAYPOJO {
+public class GATEWAYPOJO implements Serializable {
     @SerializedName("status")
     @Expose
     private String status;
@@ -29,8 +30,12 @@ public class GATEWAYPOJO {
         this.gateways = gateways;
     }
 
-    public class Gateway {
+    public class Gateway implements Serializable {
 
+
+        @SerializedName("gateway_mac")
+        @Expose
+        private String gatewayMac;
         @SerializedName("id")
         @Expose
         private String id;
@@ -120,5 +125,11 @@ public class GATEWAYPOJO {
             this.gatewayIp = gatewayIp;
         }
 
+        public String getGatewayMac() {
+            return gatewayMac;
+        }
+        public void setGatewayMac(String gatewayMac) {
+            this.gatewayMac = gatewayMac;
+        }
     }
 }

@@ -147,7 +147,7 @@ public class LoginFragment extends BaseFragment implements ApiHitListener {
                         Log.e(TAG, "success: ");
                         try {
                             Log.e(TAG, "Res USER" + login_pojo.getUserid());
-                            session_management.createLoginSession(login_pojo.getUserid(),login_pojo.getFirstName(),login_pojo.getEmail(),et_password.getText().toString(), login_pojo.getPhone());
+                            session_management.createLoginSession(login_pojo.getUserid(),login_pojo.getFirstName(),login_pojo.getEmail(),et_password.getText().toString(), login_pojo.getPhone(),login_pojo.getAuthcode());
 
                             setFragments(R.id.frameLayout, new HomeFragment(), true);
 

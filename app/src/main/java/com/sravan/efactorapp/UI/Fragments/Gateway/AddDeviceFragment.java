@@ -1,5 +1,6 @@
 package com.sravan.efactorapp.UI.Fragments.Gateway;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -111,7 +115,7 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
     private SessionManager sessionManager;
     private CryptoDH cryptoDH;
     private EditText editTextName;
-    private TextInputEditText editTextPassword;
+    private EditText editTextPassword;
     private String gatewayId = null;
     private ImageView imageViewRefresh;
     private boolean isAdding = false;
@@ -131,10 +135,16 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
     private Spinner spinnerWifi;
     private Disposable timerSubscription = null;
     private long updated_at = 0;
-    private ConstraintLayout wifiDetailsLayout;
+    private LinearLayout wifiDetailsLayout, details_layout, static_ip_layout,child_rb_layout;
     private List<String> wifiList;
     private WifiManager wifiManager;
     private RestClient restClient;
+    private RadioGroup radioGroup,parent_group;
+    private RadioButton static_rb, dynamic_rb;
+    private RadioButton wifi_rb, ethernet_rb;
+    private String RadioButton="Static";
+    private String ParentRadioButton="WIFI";
+    private EditText ip1,ip2,ip3,ip4,ip5;
     private BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
 
 
@@ -203,7 +213,7 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         sessionManager = new SessionManager(getContext());
-        this.rootView = inflater.inflate(R.layout.fragment_add_gateway, container, false);
+        this.rootView = inflater.inflate(R.layout.gateway_add, container, false);
         this.recyclerViewItemList = (RecyclerView) this.rootView.findViewById(R.id.recyclerViewDevices);
         this.recyclerViewItemList.addItemDecoration(new DividerItemDecoration(getActivity(), 1));
         this.recyclerViewItemList.setAdapter(this.newDeviceAdapter);
@@ -211,6 +221,78 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
         this.progressBarScanning = (ProgressBar) this.rootView.findViewById(R.id.progressBarScanning);
         this.spinnerWifi = (Spinner) this.rootView.findViewById(R.id.spinnerWifi);
         this.spinnerWifi.setAdapter((SpinnerAdapter) this.wifiSpinnerAdapter);
+        this.radioGroup = (RadioGroup) this.rootView.findViewById(R.id.radio_group);
+        this.static_rb = (RadioButton) this.rootView.findViewById(R.id.rb_static);
+        this.dynamic_rb = (RadioButton) this.rootView.findViewById(R.id.rb_dynamic);
+        this.editTextName = (EditText) this.rootView.findViewById(R.id.editTextName);
+        this.editTextName.setText("");
+        this.wifiDetailsLayout = (LinearLayout) this.rootView.findViewById(R.id.ips_layout);
+        this.details_layout = (LinearLayout) this.rootView.findViewById(R.id.details_layout);
+        this.static_ip_layout = (LinearLayout) this.rootView.findViewById(R.id.wifi_layout);
+        this.child_rb_layout = (LinearLayout) this.rootView.findViewById(R.id.child_rb_layout);
+        this.buttonAddDevice = (Button) this.rootView.findViewById(R.id.buttonSubmit);
+        this.parent_group=(RadioGroup) this.rootView.findViewById(R.id.parent_group);
+        this.wifi_rb = (RadioButton) this.rootView.findViewById(R.id.rb_wifi);
+        this.ethernet_rb = (RadioButton) this.rootView.findViewById(R.id.rb_ethernet);
+        this.wifi_rb.setChecked(true);
+        this.ip1=(EditText) this.rootView.findViewById(R.id.ip1);
+        this.ip2=(EditText) this.rootView.findViewById(R.id.ip2);
+        this.ip3=(EditText) this.rootView.findViewById(R.id.ip3);
+        this.ip4=(EditText) this.rootView.findViewById(R.id.ip4);
+        this.ip5=(EditText) this.rootView.findViewById(R.id.ip5);
+        this.buttonAddDevice.setEnabled(false);
+this.static_rb.setChecked(true);
+        parent_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checked) {
+
+                RadioButton rb = (RadioButton) group.findViewById(checked);
+                if (null != rb && checked > -1) {
+                    ParentRadioButton=String.valueOf(rb.getText());
+                    if (ParentRadioButton.equals("WIFI")){
+
+                        radioGroup.clearCheck();
+                        ParentRadioButton="WIFI";
+                    }else {
+                       radioGroup.clearCheck();
+                        ParentRadioButton="ETHERNET";
+                    }
+                }
+            }
+        });
+        this.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                RadioButton rb = (RadioButton) radioGroup.findViewById(checkedId);
+                if (null != rb && checkedId > -1) {
+                        RadioButton=String.valueOf(rb.getText());
+                    if(ParentRadioButton.equals("WIFI")&&RadioButton.equals("Static")) {
+
+                        wifiDetailsLayout.setVisibility(View.VISIBLE);
+                        static_ip_layout.setVisibility(View.VISIBLE);
+
+                    }else if (ParentRadioButton.equals("WIFI")&&RadioButton.equals("Dynamic")){
+                        static_ip_layout.setVisibility(View.VISIBLE);
+                        wifiDetailsLayout.setVisibility(View.GONE);
+                    }else if (ParentRadioButton.equals("ETHERNET")&&RadioButton.equals("Static")){
+                        static_ip_layout.setVisibility(View.GONE);
+                        wifiDetailsLayout.setVisibility(View.VISIBLE);
+                       // Toast.makeText(getContext(), "E_Static", Toast.LENGTH_SHORT).show();
+                    }else {
+
+                        static_ip_layout.setVisibility(View.GONE);
+                        wifiDetailsLayout.setVisibility(View.GONE);
+                       // Toast.makeText(getContext(), "ETHERNET_DYNAMIC", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                   // Toast.makeText(getContext(), RadioButton, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         this.spinnerWifi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override // android.widget.AdapterView.OnItemSelectedListener
@@ -222,12 +304,12 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
                     AddDeviceFragment.this.editTextPassword.setEnabled(true);
                 }
             }
-
             @Override // android.widget.AdapterView.OnItemSelectedListener
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        this.editTextPassword = (TextInputEditText) this.rootView.findViewById(R.id.editTextWifiPass);
+
+        this.editTextPassword = (EditText) this.rootView.findViewById(R.id.editTextWifiPass);
         this.editTextPassword.setEnabled(false);
         this.imageViewRefresh = (ImageView) this.rootView.findViewById(R.id.imageViewRefresh);
         this.imageViewRefresh.setOnClickListener(new View.OnClickListener() {
@@ -235,36 +317,20 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
                 AddDeviceFragment.this.lambda$onCreateView$0$AddDeviceFragment(view);
             }
         });
-        this.editTextName = (EditText) this.rootView.findViewById(R.id.editTextName);
-        this.editTextName.setText("");
-        this.wifiDetailsLayout = (ConstraintLayout) this.rootView.findViewById(R.id.wifiDetailsView);
-        this.buttonAddDevice = (Button) this.rootView.findViewById(R.id.buttonSubmit);
-        this.buttonAddDevice.setEnabled(false);
+
         this.buttonAddDevice.setOnClickListener(new View.OnClickListener() {
 
             public final void onClick(View view) {
                 AddDeviceFragment.this.lambda$onCreateView$1$AddDeviceFragment(view);
             }
         });
-        this.editTextName.setVisibility(View.GONE);
+        this.details_layout.setVisibility(View.VISIBLE);
+       /* this.editTextName.setVisibility(View.GONE);
         this.wifiDetailsLayout.setVisibility(View.GONE);
-        this.buttonAddDevice.setVisibility(View.GONE);
+        this.buttonAddDevice.setVisibility(View.GONE);*/
         this.loadingDialog = new LoadingDialog(getActivity());
-        /*if (this.selectedType.equals(GatewayDao.TABLENAME)) {
-            ((TextView) this.rootView.findViewById(R.id.textView3)).setText(String.format("Select the %s from below to add", "Gateway"));
-            ((TextView) this.rootView.findViewById(R.id.textView4)).setText(String.format("Select WiFi network to connect the %s", "Gateway"));
-            this.editTextName.setHint("Enter Gateway Name");
-            this.buttonAddDevice.setText("Add Gateway");
-        } else {
-            ((TextView) this.rootView.findViewById(R.id.textView3)).setText(String.format("Select the %s from below to add", "Device"));
-            ((TextView) this.rootView.findViewById(R.id.textView4)).setText(String.format("Select WiFi network to connect the %s", "Device"));
-            this.editTextName.setHint("Enter Device Name");
-            this.buttonAddDevice.setText("Add Device");
-        }*/
         this.buttonScan = (Button) this.rootView.findViewById(R.id.buttonScan);
         this.buttonScan.setOnClickListener(new View.OnClickListener() {
-
-
             public final void onClick(View view) {
                 AddDeviceFragment.this.lambda$onCreateView$2$AddDeviceFragment(view);
             }
@@ -420,9 +486,15 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
         }
         this.loadingDialog.show();
         if (this.selectedType.equals(GatewayDao.TABLENAME)) {
+            this.details_layout.setVisibility(View.VISIBLE);
             this.editTextName.setVisibility(View.VISIBLE);
-            this.wifiDetailsLayout.setVisibility(View.VISIBLE);
+            if (RadioButton.equals("Static")) {
+                this.wifiDetailsLayout.setVisibility(View.VISIBLE);
+            }else{
+                this.static_ip_layout.setVisibility(View.VISIBLE);
+            }
             this.buttonAddDevice.setVisibility(View.VISIBLE);
+
         } else {
             this.editTextName.setVisibility(View.VISIBLE);
             this.buttonAddDevice.setVisibility(View.VISIBLE);
@@ -1162,16 +1234,53 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
             //CryptoAES cryptoAES = new CryptoAES(secretKey, aesIV);
             random.nextInt(10);
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("username", "0d6ef01d-3057-400f-9ee2-92335b0c4f16");
+            //TODO - Change Username & Authcode
+            jsonObject.put("username", "0d6ef01d-3057-400f-9ee2-92335b0c4f16"/*sessionManager.getUserId()*/);
             //jsonObject.put(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME, StaticStorage.currentUser.getSub_uuid());
-            jsonObject.put("authcode", /*this.selectedDevice.getAuthCode()*/"308963d534fea1ad98307e08dba83275c8ac6007");
-            if (this.selectedDevice.getWifi_ssid() == null || this.selectedDevice.getWifi_ssid().length() <= 0) {
+            jsonObject.put("authcode", /*this.selectedDevice.getAuthCode()*/"308963d534fea1ad98307e08dba83275c8ac6007"/*sessionManager.getAuthCode()*/);
+           // Log.d("USERNAME & AUTHCODE",sessionManager.getUserId()+"\n"+sessionManager.getAuthCode());
+           if (this.selectedDevice.getWifi_ssid() == null || this.selectedDevice.getWifi_ssid().length() <= 0) {
                 jsonObject.put("sta_ssid", (Object) null);
                 jsonObject.put("sta_pass", (Object) null);
             } else {
                 jsonObject.put("sta_ssid", this.selectedDevice.getWifi_ssid());
                 jsonObject.put("sta_pass", this.selectedDevice.getWifi_password());
+                Log.d("SELECTED DEVICE WIFI DETAILS :" ,this.selectedDevice.getWifi_ssid());
+              /* jsonObject.put("sta_ssid", "Efactor");
+               jsonObject.put("sta_pass", "perfect@20");*/
             }
+           // jsonObject.put("mode", "1");
+           if (ParentRadioButton.equals("WIFI")&&RadioButton.equals("Static"))
+           {
+               jsonObject.put("sta_ssid", this.selectedDevice.getWifi_ssid());
+               jsonObject.put("sta_pass", this.selectedDevice.getWifi_password());
+               jsonObject.put("ip", /*"192.168.0.176"*/ip1.getText().toString().trim());
+                jsonObject.put("netmask", /*"255.255.255.0"*/ip2.getText().toString().trim());
+                jsonObject.put("gw", /*"192.168.0.1"*/ip3.getText().toString().trim());
+               jsonObject.put("dsn1", /*"8.8.8.8"*/ip4.getText().toString().trim());  //DSN! or DSN2 any one can be empty
+               jsonObject.put("dsn2", /*"8.8.4.4"*/ip5.getText().toString().trim());
+
+            }else if (ParentRadioButton.equals("WIFI")&&RadioButton.equals("Dynamic")){
+               jsonObject.put("sta_ssid", this.selectedDevice.getWifi_ssid());
+               jsonObject.put("sta_pass", this.selectedDevice.getWifi_password());
+           }
+           else if (ParentRadioButton.equals("ETHERNET")&&RadioButton.equals("Static")){
+               jsonObject.put("ip", /*"192.168.0.176"*/ip1.getText().toString().trim());
+               jsonObject.put("netmask", /*"255.255.255.0"*/ip2.getText().toString().trim());
+               jsonObject.put("gw", /*"192.168.0.1"*/ip3.getText().toString().trim());
+               jsonObject.put("dsn1", /*"8.8.8.8"*/ip4.getText().toString().trim());  //DSN! or DSN2 any one can be empty
+               jsonObject.put("dsn2", /*"8.8.4.4"*/ip5.getText().toString().trim());
+           }else if (ParentRadioButton.equals("ETHERNET")&&RadioButton.equals("Dynamic")){
+               jsonObject.put("sta_ssid", (Object) null);
+               jsonObject.put("sta_pass", (Object) null);
+           }
+
+
+        /*    jsonObject.put("ip", "192.168.0.176");
+            jsonObject.put("netmask", "255.255.255.0");
+            jsonObject.put("gw", "192.168.0.1");
+            jsonObject.put("dsn1", "8.8.8.8");
+            jsonObject.put("dsn2", "8.8.4.4");*/
             Log.d(TAG, "JSON Sent: " + jsonObject.toString());
             //  byte[] encryptResponse = cryptoAES.encrypt(jsonObject.toString().getBytes());
             byte[] encryptResponse = jsonObject.toString().getBytes();

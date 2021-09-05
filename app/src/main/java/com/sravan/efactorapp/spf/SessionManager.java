@@ -36,6 +36,7 @@ public class SessionManager {
     private static String EMAIL = "email";
     private static String PASSWORD = "password";
     private static String USER_ID = "user_id";
+    private static String AUTHCODE = "authcode";
 
    // private static String PACKAGE_CATEGERYID = "PackageCategories";
 
@@ -151,12 +152,12 @@ public class SessionManager {
     }
 
     public void createLoginSession(String userid, String fullname, String email, String password,
-                                   String mobile) {
+                                   String mobile,String authcode) {
         editor.putBoolean(ISLOGIN, true);
         editor.putString(FUllNAME, fullname);
         editor.putString(EMAIL, email);
         editor.putString(PASSWORD, password);
-        //editor.putString(IMAGE, image);
+        editor.putString(AUTHCODE, authcode);
         editor.putString(MOBILE, mobile);
         editor.putString(USER_ID, userid);
 
@@ -182,7 +183,9 @@ public class SessionManager {
     public String getUserFullName() {
         return preferences.getString(FUllNAME, "");
     }
-
+    public String getAuthCode() {
+        return preferences.getString(AUTHCODE, "");
+    }
     public String getAddress() {
         return preferences.getString(ADDRESS, "");
     }

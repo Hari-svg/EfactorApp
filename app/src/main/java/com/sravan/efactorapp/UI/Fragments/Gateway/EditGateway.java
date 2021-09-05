@@ -21,18 +21,14 @@ import java.util.List;
 
 
 public class EditGateway extends BaseFragment {
-    private static final String ARG_PARAM = "GATEWA_LIST";
+    private static final String ARG_PARAM = "gatewaylist";
+    private static final String ARG_PARAM1 = "id";
     private static final String TAG = EditGateway.class.getSimpleName();
     private List<GATEWAYPOJO.Gateway> GatewayList;
     private EditText et_gatewayName;
+    private  String GatewayId;
+    private int Position;
 
-    public static EditGateway newInstance(String param1) {
-        EditGateway fragment = new EditGateway();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     protected int getLayoutResourceView() {
@@ -42,13 +38,15 @@ public class EditGateway extends BaseFragment {
     @Override
     protected void findView() {
         GatewayList = new ArrayList<>();
-        if (getArguments() != null) {
-            GatewayList = (ArrayList<GATEWAYPOJO.Gateway>) getArguments().getSerializable(ARG_PARAM);
+         if (getArguments() != null) {
+            GatewayList = (List<GATEWAYPOJO.Gateway>) getArguments().getSerializable(ARG_PARAM);
+            Position=getArguments().getInt(ARG_PARAM1);
             String str = TAG;
-            Log.d(str, "Gateway List : " + this.GatewayList);
+            Log.d(str, "Gateway List : " + this.GatewayList.toString());
+            Log.e("ID",GatewayList.get(Position).getId());
         }
         et_gatewayName = (EditText) findViewByIds(R.id.et_gatewayName);
-        et_gatewayName.setText(GatewayList.get(0).getGatewayName());
+        et_gatewayName.setText(GatewayList.get(Position).getGatewayName());
 
     }
 
