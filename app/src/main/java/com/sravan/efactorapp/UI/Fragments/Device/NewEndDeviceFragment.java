@@ -63,8 +63,6 @@ public class NewEndDeviceFragment extends Fragment implements ApiHitListener {
     private String RoomId,GatewayId;
     @Override // androidx.fragment.app.Fragment
 
-
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.newDeviceData = new NewDeviceData();

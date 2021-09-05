@@ -27,6 +27,8 @@ import com.sravan.efactorapp.RestClient.RestClient;
 import com.sravan.efactorapp.UI.Fragments.Gateway.AddDeviceFragment;
 import com.sravan.efactorapp.UI.Fragments.Gateway.EditGateway;
 import com.sravan.efactorapp.spf.SessionManager;
+import com.sravan.efactorapp.utils.DataBase.DatabaseHandler;
+import com.sravan.efactorapp.utils.DataBase.Model.Gateway;
 import com.sravan.efactorapp.utils.DataBase.Model.GatewayDao;
 
 import java.io.IOException;
@@ -41,7 +43,7 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
     private static final String ARG_PARAM = "GATEWA_LIST";
     private static final String TAG = MyGateways.class.getSimpleName();
     private RecyclerView GatewayRV;
-    private List<GATEWAYPOJO.Gateway> GatewayList;
+    private List<Gateway> GatewayList;
     private String GATEWAYID;
     private RestClient restClient;
     private SessionManager sessionManager;
@@ -96,7 +98,7 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
     public void onAdapterClickListener(int position, String action) {
         if (action.equals("Delete")) {
             //showToast(GatewayList.get(position).getGatewayId());
-            GATEWAYID = GatewayList.get(position).getId();
+            GATEWAYID = String.valueOf(GatewayList.get(position).getId());
             Position = position;
             Log.e("Position", String.valueOf(Position));
             Log.e("GatewayId", String.valueOf(GATEWAYID));
@@ -104,8 +106,9 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
             displayProgressBar(false);
             restClient.callback(this).DELETE_GATEWAY(GATEWAYID);
             // initBle();
+            //DeleteLocalDB();
         } else if (action.equals("Edit")) {
-            GATEWAYID = GatewayList.get(position).getId();
+            GATEWAYID = String.valueOf(GatewayList.get(position).getId());
             Bundle bundle = new Bundle();
             bundle.putSerializable("gatewaylist", (Serializable) GatewayList);
             bundle.putInt("id", position);
@@ -146,6 +149,7 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
 
                             initBle();
                             showToast(pojo.getMessage());
+                            DeleteLocalDB();
                             // setFragments(R.id.frameLayout, new MyGateways(), true);
                             //Log.e(TAG, "DeviceList" + DeviceDataList.size());
                             RefreshGateways();
@@ -209,6 +213,20 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
         }
     }
 
+    private void DeleteLocalDB() {
+        try {
+            Log.d("DB INSTANCE", String.valueOf(DatabaseHandler.getInstance()));
+            Log.d("DeleteDB", String.valueOf(DatabaseHandler.getInstance().getGateway(String.valueOf(GatewayList.get(Position).getGateway_id()))));
+            //TODO GAtewayID getting Wrong value
+            Gateway gateway = DatabaseHandler.getInstance().getGateway("FFFFFFFFFFFFFFFFC4C3C2C1D2D10400"/*String.valueOf(DatabaseHandler.getInstance().getGateway(String.valueOf(GatewayList.get(Position).getGateway_id())))*/);
+            if (gateway != null) {
+                DatabaseHandler.getInstance().deleteGateway(gateway);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getContext(), ""+e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public void onFailResponse(int apiId, String error) {
@@ -219,11 +237,11 @@ public class MyGateways extends BaseFragment implements AdapterClickListener {
 
     private void initBle() {
         Log.e("initBle", "initBle initial");
-        Log.e(TAG, "GATEWAY MAC" + GatewayList.get(Position).getGatewayMac());
+        Log.e(TAG, "GATEWAY MAC" + GatewayList.get(Position).getMac());
         //rxBleClient = App.getBleClient();
         rxBleClient = RxBleClient.create(getContext());
 
-        String mac1 = GatewayList.get(0).getGatewayMac()/*"9C9C1FEE8B60"*/;
+        String mac1 = GatewayList.get(0).getMac()/*"9C9C1FEE8B60"*/;
         String s1 = mac1.substring(0, 2);
         String s2 = mac1.substring(2, 4);
         String s3 = mac1.substring(4, 6);

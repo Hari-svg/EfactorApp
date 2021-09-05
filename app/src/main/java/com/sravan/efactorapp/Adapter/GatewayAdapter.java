@@ -19,6 +19,7 @@ import com.sravan.efactorapp.R;
 import com.sravan.efactorapp.RestClient.ApiHitListener;
 import com.sravan.efactorapp.RestClient.RestClient;
 import com.sravan.efactorapp.UI.Fragments.MyGateways;
+import com.sravan.efactorapp.utils.DataBase.Model.Gateway;
 
 import java.util.List;
 
@@ -27,11 +28,11 @@ import retrofit2.Response;
 
 public class GatewayAdapter extends BaseRecycleAdapter {
     FragmentActivity activity;
-    List<GATEWAYPOJO.Gateway> gatewayList;
+    List<Gateway> gatewayList;
     private AdapterClickListener clickListener;
 
 
-    public GatewayAdapter(AdapterClickListener clickListener, List<GATEWAYPOJO.Gateway> gatewayList) {
+    public GatewayAdapter(AdapterClickListener clickListener, List<Gateway> gatewayList) {
         this.activity = activity;
         this.gatewayList = gatewayList;
         this.clickListener=clickListener;
@@ -82,8 +83,8 @@ public class GatewayAdapter extends BaseRecycleAdapter {
         @Override
         public void setData(int position) {
             pos = position;
-            roomname.setText(gatewayList.get(position).getGatewayName());
-            gateway_id.setText(gatewayList.get(position).getGatewayId());
+            roomname.setText(gatewayList.get(position).getName());
+            gateway_id.setText(gatewayList.get(position).getGateway_id());
             view.setBackgroundResource(R.drawable.logo);
             delete.setOnClickListener(this);
             edit_gateway.setOnClickListener(this);

@@ -145,13 +145,13 @@ public class DatabaseHandler {
     }
 
     public void deleteGateway(Gateway gateway) {
-        List<Device> deviceList = this.deviceDao.queryBuilder().where(DeviceDao.Properties.Gateway_id.eq(gateway.getGateway_id()), new WhereCondition[0]).list();
+       /* List<Device> deviceList = this.deviceDao.queryBuilder().where(DeviceDao.Properties.Gateway_id.eq(gateway.getGateway_id()), new WhereCondition[0]).list();
         if (deviceList != null) {
             for (Device device : deviceList) {
                 device.setGateway_id(Constants.NONE_GATEWAY_VALUE);
                 updateDevice(device);
             }
-        }
+        }*/
         this.gatewayDao.delete(gateway);
         this.daoSession.clear();
     }

@@ -1,28 +1,69 @@
 package com.sravan.efactorapp.utils.DataBase.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONObject;
 
 public class Gateway {
+    @SerializedName("gateway_ip")
+    @Expose
+    private String gatewayIp;
     private String apn;
     private String feature_data;
     private String fw_ver;
+    @SerializedName("gateway_id")
+    @Expose
     private String gateway_id;
+    @SerializedName("id")
+    @Expose
     private Long id;
     private boolean is_deleted;
     private double latitude;
     private double longitude;
+    @SerializedName("gateway_mac")
+    @Expose
     private String mac;
+    @SerializedName("gateway_manufacturer")
+    @Expose
     private String manufacturer;
     private String model_desc;
     private String model_name;
     private String model_version;
+    @SerializedName("gateway_name")
+    @Expose
     private String name;
+
+    public String getGatewayFwVer() {
+        return gatewayFwVer;
+    }
+
+    public void setGatewayFwVer(String gatewayFwVer) {
+        this.gatewayFwVer = gatewayFwVer;
+    }
+
+    @SerializedName("gateway_fw_ver")
+    @Expose
+    private String gatewayFwVer;
     private String secret_key;
     private String status_data;
     private String timezone;
-    private String type;
+
     private long updated_at;
+    @SerializedName("gateway_wifi_ssid")
+    @Expose
     private String wifi_ssid;
+    @SerializedName("gateway_type")
+    @Expose
+    private String type;
+    public String getGatewayIp() {
+        return gatewayIp;
+    }
+
+    public void setGatewayIp(String gatewayIp) {
+        this.gatewayIp = gatewayIp;
+    }
+
 
     public static Gateway toGateway(JSONObject jsonObject) {
         try {

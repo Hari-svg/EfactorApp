@@ -257,7 +257,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
                 DataHandler.getInstance().setDeviceStatus(deviceDataList.get(n), PayloadCommand);
 
             } else if (v.getId() == R.id.led_green) {
-                String PayloadCommand = "01005508A1C3000000006C";
+                String PayloadCommand = "01005508A1C30000000672";
                 DataHandler.getInstance().setDeviceStatus(deviceDataList.get(n), PayloadCommand);
 
             } else if (v.getId() == R.id.LED_off) {

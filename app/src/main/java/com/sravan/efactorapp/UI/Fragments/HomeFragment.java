@@ -42,6 +42,7 @@ import com.sravan.efactorapp.UI.Fragments.Gateway.AddDeviceFragment;
 import com.sravan.efactorapp.UI.Fragments.Gateway.AddGateway;
 import com.sravan.efactorapp.UI.Fragments.Room.AddRoom;
 import com.sravan.efactorapp.spf.SessionManager;
+import com.sravan.efactorapp.utils.DataBase.Model.Gateway;
 import com.sravan.efactorapp.utils.DataBase.Model.GatewayDao;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class HomeFragment extends BaseFragment implements ApiHitListener,RoomAda
     private SessionManager sessionManager;
     private RecyclerView RoomsRV,GatewayRV;
     private RestClient restClient;
-    private List<GATEWAYPOJO.Gateway> GatewayList;
+    private List<Gateway> GatewayList;
     private List<ROOMINFOPOJO.Room> RoomList;
 
     @Override

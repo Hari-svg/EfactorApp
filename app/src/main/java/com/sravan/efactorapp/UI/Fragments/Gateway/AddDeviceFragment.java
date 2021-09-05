@@ -1,10 +1,14 @@
 package com.sravan.efactorapp.UI.Fragments.Gateway;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Base64;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,8 +31,10 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -145,6 +152,8 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
     private String RadioButton="Static";
     private String ParentRadioButton="WIFI";
     private EditText ip1,ip2,ip3,ip4,ip5;
+    private Dialog alertDialogProgressBar;
+    private AlertDialog mErrorDialog;
     private BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
 
 
@@ -173,6 +182,7 @@ public class AddDeviceFragment extends Fragment implements NewDeviceAdapter.OnNe
             AddDeviceFragment.this.wifiSpinnerAdapter.notifyDataSetChanged();
         }
     };
+
 
     private void lambda$onReceive$0$AddDeviceFragment$2() {
         AddDeviceFragment.this.loadingDialog.hide();
@@ -321,6 +331,7 @@ this.static_rb.setChecked(true);
         this.buttonAddDevice.setOnClickListener(new View.OnClickListener() {
 
             public final void onClick(View view) {
+                displayProgressBar(true);
                 AddDeviceFragment.this.lambda$onCreateView$1$AddDeviceFragment(view);
             }
         });
@@ -846,7 +857,8 @@ this.static_rb.setChecked(true);
             e.printStackTrace();
             stopAddTimer();
             this.loadingDialog.hide();
-            MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Failed(3) to add Gateway!\nPlease retry.", null);
+            dismissProgressBar();
+            displayErrorDialog("Error", "Failed(3) to add Gateway!\nPlease retry.");
         }
     }
 
@@ -854,11 +866,13 @@ this.static_rb.setChecked(true);
         if (((JSONObject) o).getInt(NotificationCompat.CATEGORY_STATUS) != 200) {
             stopAddTimer();
             this.loadingDialog.hide();
-            MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Failed(1) to add Gateway!\nPlease retry.", null);
+            dismissProgressBar();
+            displayErrorDialog("Error", "Failed(1) to add Gateway!\nPlease retry.");
             return;
         }
         stopAddTimer();
         this.loadingDialog.hide();
+        dismissProgressBar();
         redirectToHome();
     }
 
@@ -867,7 +881,8 @@ this.static_rb.setChecked(true);
         Log.e(str, "Error Onboarding" + throwable);
         stopAddTimer();
         this.loadingDialog.hide();
-        MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Failed(2) to add Gateway!\nPlease retry.", null);
+        dismissProgressBar();
+        displayErrorDialog("Error", "Failed(2) to add Gateway!\nPlease retry.");
     }
 
     private void performGatewayAuthotization() {
@@ -942,6 +957,8 @@ this.static_rb.setChecked(true);
             });*/
 
             if (ConnectionDetector.isNetAvail(getContext())) {
+ //               Log.d("Cloud",this.selectedDevice.getGateway_id());
+                Log.d("Cloud 1",this.selectedDevice.getId());
                 restClient.callback(this).ADD_GATEWAY(sessionManager.getUserId(), this.selectedDevice.getId(), this.selectedDevice.getAuthCode(), Lat, Long, this.selectedDevice.getName(), this.selectedDevice.getMac(),
                         this.selectedDevice.getApn(), WIFISSID, this.selectedDevice.getSecretKey(), this.selectedDevice.getType(), this.selectedDevice.getFw_ver(), this.selectedDevice.getManufacturer(),
                         this.selectedDevice.getModel_version(), this.selectedDevice.getModel_name(), this.selectedDevice.getIp(), this.selectedDevice.getModel_desc(), this.selectedDevice.getTimezone());
@@ -953,7 +970,8 @@ this.static_rb.setChecked(true);
             e.printStackTrace();
             FragmentActivity activity = getActivity();
             Toast.makeText(activity, "Exception: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Error(3) adding Gateway.\nPlease check internet connection and retry.", null);
+            dismissProgressBar();
+            displayErrorDialog("Error", "Error(3) adding Gateway.\nPlease check internet connection and retry.");
         }
     }
 
@@ -967,17 +985,19 @@ this.static_rb.setChecked(true);
         }
         stopAddTimer();
         this.loadingDialog.hide();
-        MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Error(1) adding Gateway.\nPlease check internet connection and retry.", null);
+        dismissProgressBar();
+        displayErrorDialog("Error", "Error(1) adding Gateway.\nPlease check internet connection and retry.");
     }
 
     public /* synthetic */ void lambda$performGatewayAuthotization$19$AddDeviceFragment(Object throwable) throws Exception {
         stopAddTimer();
         this.loadingDialog.hide();
+        dismissProgressBar();
         String str = TAG;
         Log.e(str, "performGatewayAuthotization Exception: " + throwable);
         FragmentActivity activity = getActivity();
         Toast.makeText(activity, "Exception: " + throwable, Toast.LENGTH_LONG).show();
-        MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Error(2) adding Gateway.\nPlease check internet connection and retry.", null);
+       displayErrorDialog("Error", "Error(2) adding Gateway.\nPlease check internet connection and retry.");
     }
 
     private void redirectToHome() {
@@ -1238,7 +1258,7 @@ this.static_rb.setChecked(true);
             jsonObject.put("username", "0d6ef01d-3057-400f-9ee2-92335b0c4f16"/*sessionManager.getUserId()*/);
             //jsonObject.put(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME, StaticStorage.currentUser.getSub_uuid());
             jsonObject.put("authcode", /*this.selectedDevice.getAuthCode()*/"308963d534fea1ad98307e08dba83275c8ac6007"/*sessionManager.getAuthCode()*/);
-           // Log.d("USERNAME & AUTHCODE",sessionManager.getUserId()+"\n"+sessionManager.getAuthCode());
+           // Log.d("USERNAME & AUTHCODE",sessionManager.getUserId()+"\n"+sessionManager.getAuthCode());*/
            if (this.selectedDevice.getWifi_ssid() == null || this.selectedDevice.getWifi_ssid().length() <= 0) {
                 jsonObject.put("sta_ssid", (Object) null);
                 jsonObject.put("sta_pass", (Object) null);
@@ -1353,11 +1373,13 @@ this.static_rb.setChecked(true);
     public /* synthetic */ void lambda$null$25$AddDeviceFragment() {
         stopAddTimer();
         this.loadingDialog.hide();
+        dismissProgressBar();
         redirectToHome();
     }
 
     public /* synthetic */ void lambda$null$26$AddDeviceFragment() {
         stopAddTimer();
+        dismissProgressBar();
         this.loadingDialog.hide();
     }
 
@@ -1405,5 +1427,42 @@ this.static_rb.setChecked(true);
     public void onFailResponse(int apiId, String error) {
         this.loadingDialog.hide();
         MessageDialog.showErrorDialogWithOkBtn(getActivity(), "Error(1) adding Gateway.\nPlease check internet connection and retry.", null);
+    }
+    public void displayProgressBar(boolean isCancellable) {
+        alertDialogProgressBar = new Dialog(getContext(),
+                R.style.YourCustomStyle);
+        alertDialogProgressBar.setCancelable(false);
+        alertDialogProgressBar
+                .requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialogProgressBar.setContentView(R.layout.progress_dialog);
+
+        alertDialogProgressBar.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.TRANSPARENT));
+
+        alertDialogProgressBar.show();
+    }
+
+    public void dismissProgressBar() {
+        if (alertDialogProgressBar != null) {
+            alertDialogProgressBar.dismiss();
+        }
+    }
+
+    public void displayErrorDialog(String title, String content) {
+        if (getContext() != null)
+            mErrorDialog = new AlertDialog.Builder(getContext())
+                    .setTitle(title)
+                    .setMessage(content)
+                    .setIcon(ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round))
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .create();
+        if (mErrorDialog != null)
+            mErrorDialog.show();
     }
 }

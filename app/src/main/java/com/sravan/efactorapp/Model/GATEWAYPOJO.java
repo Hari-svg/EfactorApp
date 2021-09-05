@@ -2,6 +2,7 @@ package com.sravan.efactorapp.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sravan.efactorapp.utils.DataBase.Model.Gateway;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,7 +31,7 @@ public class GATEWAYPOJO implements Serializable {
         this.gateways = gateways;
     }
 
-    public class Gateway implements Serializable {
+    /*public class Gateway implements Serializable {
 
 
         @SerializedName("gateway_mac")
@@ -131,5 +132,5 @@ public class GATEWAYPOJO implements Serializable {
         public void setGatewayMac(String gatewayMac) {
             this.gatewayMac = gatewayMac;
         }
-    }
+    }*/
 }
